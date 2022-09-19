@@ -98,7 +98,7 @@ if(playerlist != null)
 }
 ```
 ## Post Data
-### Fetch full playerlist
+### Kick Player
 
 |       Param        |                                             Description                                              |
 | -------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -109,7 +109,6 @@ if(playerlist != null)
 bool wasKickSuccessfully = await webManager.KickPlayer(string server_api_id, string player_session_id, string reason);
 ```
 CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
-#POST-Requests
 ````
 Comming soon
 ````
