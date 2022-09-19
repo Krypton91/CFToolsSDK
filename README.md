@@ -69,6 +69,8 @@ if(board != null)
 	}
 }
 ```
+
+CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
 #POST-Requests
 ````
 Comming soon
