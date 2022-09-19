@@ -198,6 +198,22 @@ namespace CFToolsSDK.classes
             return null;
         }
 
+
+        public async Task<FullPlayerList> GetFullPlayerList(string server_api_id)
+        {
+            string endPoint = $"/v1/server/{server_api_id}/GSM/list";
+            var result = await Get(endPoint, null);
+            if (result.Item1)
+            {
+                var Data = JsonConvert.DeserializeObject<FullPlayerList>(result.Item2);
+                return Data;
+            }
+            else
+                Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
+
+            return null;
+        }
+
         private async Task<Tuple<bool, string>> Get(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
