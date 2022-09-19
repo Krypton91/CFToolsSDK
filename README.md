@@ -25,7 +25,7 @@ You will need the following tools:
 ### DayZ CF-TOOLS SDK
 To use this SDK follow the setup.
 1. Add 2 strings to your app.config
-```
+```clojure
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
 	<appSettings>
