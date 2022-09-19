@@ -136,6 +136,20 @@ bool sendet = await webManager.ServerMessage(string server_api_id, string conten
 ```csharp
 bool sendet = await webManager.ServerMessage(string server_api_id, string content);
 ```
+
+
+### Add queue priority
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string player_cfid`       	| cftools_id of the reciver.|
+| `string comment`       	| any comment.|
+| `string expires_at`       	| Isco8601 timestamp, you can use the convertor in CFHelper to convert any DateTime object to ISO8601.|
+```csharp
+DateTime expires = DateTime.UtcNow;
+expires = expires.AddDays(2);//In our case we give him 2 Days.
+bool addedWithsuccess = await webManager.AddQueuePriority(string server_api_id, string player_cfid, string comment, CFHelper.ConvertDateTimeToIso8601Time(expires));
+```
 CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
 ````
 Comming soon
