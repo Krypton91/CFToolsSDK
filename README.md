@@ -50,6 +50,7 @@ The [master](https://github.com/Krypton91/CFToolsSDK/master) branch is running .
 
 # Documentation
 
+## Get Data
 ### Fetch Leaderboard
 
 |       Param        |                                             Description                                              |
@@ -96,7 +97,17 @@ if(playerlist != null)
         }
 }
 ```
+## Post Data
+### Fetch full playerlist
 
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string player_session_id`       | the session id of the player what gets kicked. |
+| `string reason`       	| any reason. |
+```csharp
+bool wasKickSuccessfully = await webManager.KickPlayer(string server_api_id, string player_session_id, string reason);
+```
 CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
 #POST-Requests
 ````
