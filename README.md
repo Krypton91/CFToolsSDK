@@ -49,18 +49,25 @@ To use this SDK follow the setup.
 The [master](https://github.com/Krypton91/CFToolsSDK/master) branch is running .NET Core 3.1
 
 ### Documentation
-Fetch Leaderboard
 
+# Fetch Leaderboard
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | can be found in cftools. |
+| `enum LEADERBOARD_STAT` | kills,deaths,suicides,playtime,longest_kill,longest_shot,kdratio  is supported |
+| `enum LEADERBOARD_ORDER` | ASCEDING and DESCENDING  is supported |
+| `int limit` | 1-100  is supported |
 ```csharp
 List<Leaderboard> board = await webManager.GetLeaderborad(string server_api_id, LEADERBOARD_STAT stat, LEADERBOARD_ORDER order, int limit);
-            if(board != null)
-            {
-                Logger.GetInstance().Debug("Successfully recived Leaderboard!");
-                foreach (var entry in board)
-                {
-                    Logger.GetInstance().Debug($"{entry.rank}. {entry.latest_name} has {entry.kills} with a KD {entry.kdratio}");
-                }
-            }
+if(board != null)
+{
+	Logger.GetInstance().Debug("Successfully recived Leaderboard!");
+	foreach (var entry in board)
+	{
+		Logger.GetInstance().Debug($"{entry.rank}. {entry.latest_name} has {entry.kills} with a KD {entry.kdratio}");
+	}
+}
 ```
 #POST-Requests
 ````
