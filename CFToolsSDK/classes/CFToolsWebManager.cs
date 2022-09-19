@@ -283,6 +283,17 @@ namespace CFToolsSDK.classes
             return result.Item1;
         }
 
+        public async Task<bool> DeleteQueuePriority(string server_api_id, string cftools_id)
+        {
+            string endPoint = $"/v1/server/{server_api_id}/queuepriority";
+            var ReqData = new Dictionary<string, string>
+            {
+                    {"cftools_id", cftools_id}
+            };
+            var result = await Delete(endPoint, ReqData);
+            return result.Item1;
+        }
+
         private async Task<Tuple<bool, string>> Get(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
@@ -301,6 +312,29 @@ namespace CFToolsSDK.classes
             }
             string url = builder.ToString();
             var res = await client.GetAsync(url);
+            var content = await res.Content.ReadAsStringAsync();
+            Console.WriteLine(content);
+            return Tuple.Create(res.IsSuccessStatusCode, content);
+        }
+
+        private async Task<Tuple<bool, string>> Delete(string endPointURL, Dictionary<string, string> RequestParams)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AuthToken);
+            var builder = new UriBuilder(BASE_URL + endPointURL);
+            builder.Port = -1;
+            var query = HttpUtility.ParseQueryString(builder.Query);
+            if (RequestParams != null)
+            {
+                foreach (var item in RequestParams)
+                {
+                    query[item.Key] = item.Value;
+                }
+
+                builder.Query = query.ToString();
+            }
+            string url = builder.ToString();
+            var res = await client.DeleteAsync(url);
             var content = await res.Content.ReadAsStringAsync();
             Console.WriteLine(content);
             return Tuple.Create(res.IsSuccessStatusCode, content);
