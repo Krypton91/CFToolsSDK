@@ -30,7 +30,7 @@ namespace CFToolsSDK.classes
             }
         }
 
-        public static string ConvertDateTimeToIsco8601Time(DateTime time)
+        public static string ConvertDateTimeToIso8601Time(DateTime time)
         {
             return time.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz", CultureInfo.InvariantCulture);
         }
