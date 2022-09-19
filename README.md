@@ -5,9 +5,15 @@
 
 This SDK gives you the ability to post or query data from the CFTools Cloud API.
 You can run anything available in the webapi through this SDK. Currently supported is:
-- [x] #Fetch Leaderboard
-- [x] #Fetch Server Infos
-- [ ] #Fetch Server data
+- [x] Fetch Leaderboard
+- [x] Fetch Server Infos
+- [x] Fetch full playerlist
+- [x] Kick player
+- [x] Send private message
+- [x] Send server message
+- [x] Send raw rcon command
+- [x] Add queue priority
+- [x] Delete queue priority
 
 
 ## Getting Started
@@ -153,6 +159,7 @@ bool addedWithsuccess = await webManager.AddQueuePriority(string server_api_id, 
 
 ## Delete Data
 
+### Delete queue priority
 |       Param        |                                             Description                                              |
 | -------------------- | ---------------------------------------------------------------------------------------------------- |
 | `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
