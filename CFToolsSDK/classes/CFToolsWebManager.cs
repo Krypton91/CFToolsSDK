@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using CFToolsSDK.classes.config;
 using CFToolsSDK.classes.logging;
 using Newtonsoft.Json.Linq;
 
@@ -23,8 +24,9 @@ namespace CFToolsSDK.classes
 
         private async void Init()
         {
-            string Application_id = "";
-            string secret = "";
+            CFToolsConfigManager config = new CFToolsConfigManager();
+            string Application_id = config.Application_id;
+            string secret = config.secret;
             bool result = await Auth(Application_id, secret);
             if (result)
             {
