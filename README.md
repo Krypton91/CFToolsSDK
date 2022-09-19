@@ -116,7 +116,16 @@ bool wasKickSuccessfully = await webManager.KickPlayer(string server_api_id, str
 | `string player_session_id`       | the session id of the player what recives the message. |
 | `string content`       	| any message. |
 ```csharp
-bool sendet = await webManager.SendPrivateMessage(string server_api_id, string player_session_id, string reason);
+bool sendet = await webManager.SendPrivateMessage(string server_api_id, string player_session_id, string content);
+```
+
+### Send server message
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string content`       	| any message. |
+```csharp
+bool sendet = await webManager.ServerMessage(string server_api_id, string content);
 ```
 CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
 ````
