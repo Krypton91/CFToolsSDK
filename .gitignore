@@ -226,3 +226,4 @@ CFToolsSDK/obj/CFToolsSDK.csproj.nuget.dgspec.json
 *.cache
 *.json
 *.cache
+.vs/CFToolsSDK/v17/.suo
