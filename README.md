@@ -150,7 +150,15 @@ DateTime expires = DateTime.UtcNow;
 expires = expires.AddDays(2);//In our case we give him 2 Days.
 bool addedWithsuccess = await webManager.AddQueuePriority(string server_api_id, string player_cfid, string comment, CFHelper.ConvertDateTimeToIso8601Time(expires));
 ```
-CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
+
+## Delete Data
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string player_cfid`       	| cftools_id of the player.|
+```csharp
+bool deleted = await webManager.DeleteQueuePriority(string server_api_id, string player_cfid);
 ````
 Comming soon
 ````
