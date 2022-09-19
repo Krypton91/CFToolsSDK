@@ -27,20 +27,15 @@ namespace Example_Project
             {
                 Logger.GetInstance().Debug("Waiting for Auth...........");
             }
-            List<Leaderboard> board = await webManager.GetLeaderborad("24234c37-0703-49dc-9145-b67da3863723", Enums.LEADERBOARD_STAT.kills, Enums.LEADERBOARD_ORDER.DESCENDING, 50);
-            if(board != null)
+            FullPlayerList playerlist = await webManager.GetFullPlayerList("");
+            if(playerlist != null)
             {
                 Logger.GetInstance().Debug("Successfully recived Leaderboard!");
-                foreach (var entry in board)
+                foreach (var entry in playerlist.sessions)
                 {
-                    Logger.GetInstance().Debug($"{entry.rank}. {entry.latest_name} has {entry.kills} with a KD {entry.kdratio}");
+                    Logger.GetInstance().Debug($"{entry.cftools_id} with name: {entry.gamedata.player_name}");
                 }
             }
-            GameServer server = await webManager.GetGameServer(CFHelper.GenerateServerId("194.26.183.53", "2302"));
-            Logger.GetInstance().Debug("Successfully recived Server Data from IP: 194.26.183.146");
-            Logger.GetInstance().Debug($"playercount: {server.status.players}");
-            Logger.GetInstance().Debug($"MapName: {server.map_name}");
-            Logger.GetInstance().Debug($"Server Name: {server.name}");
 
             Console.ReadKey();
         }
