@@ -127,6 +127,15 @@ bool sendet = await webManager.SendPrivateMessage(string server_api_id, string p
 ```csharp
 bool sendet = await webManager.ServerMessage(string server_api_id, string content);
 ```
+
+### Send raw rcon command
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string command`       	| any valid rcon command [Rcon Commands]https://pingperfect.com/index.php/knowledgebase/347/DayZ--Admin-Command-List.html "Rcon Commands") |
+```csharp
+bool sendet = await webManager.ServerMessage(string server_api_id, string content);
+```
 CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
 ````
 Comming soon
