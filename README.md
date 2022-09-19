@@ -98,7 +98,7 @@ if(playerlist != null)
 }
 ```
 ## Post Data
-### Kick Player
+### Kick player
 
 |       Param        |                                             Description                                              |
 | -------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -107,6 +107,16 @@ if(playerlist != null)
 | `string reason`       	| any reason. |
 ```csharp
 bool wasKickSuccessfully = await webManager.KickPlayer(string server_api_id, string player_session_id, string reason);
+```
+
+### Send private message
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string player_session_id`       | the session id of the player what recives the message. |
+| `string content`       	| any message. |
+```csharp
+bool sendet = await webManager.SendPrivateMessage(string server_api_id, string player_session_id, string reason);
 ```
 CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
 ````
