@@ -49,9 +49,6 @@ To use this SDK follow the setup.
 The [master](https://github.com/Krypton91/CFToolsSDK/master) branch is running .NET Core 3.1
 
 ### Documentation
-
-```
-
 Fetch Leaderboard
 
 ```csharp
