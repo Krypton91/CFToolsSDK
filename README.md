@@ -80,6 +80,23 @@ if(board != null)
 GameServer server = await webManager.GetGameServer(CFHelper.GenerateServerId(string ServerIP, string Gameport));
 ```
 
+### Fetch full playerlist
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+```csharp
+FullPlayerList playerlist = await webManager.GetFullPlayerList(string server_api_id);
+if(playerlist != null)
+{
+	Logger.GetInstance().Debug("Successfully recived Leaderboard!");
+        foreach (var entry in playerlist.sessions)
+        {
+		Logger.GetInstance().Debug($"{entry.cftools_id} with name: {entry.gamedata.player_name}");
+        }
+}
+```
+
 CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
 #POST-Requests
 ````
