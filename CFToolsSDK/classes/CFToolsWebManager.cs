@@ -9,14 +9,14 @@ using Newtonsoft.Json.Linq;
 
 namespace CFToolsSDK.classes
 {
-    internal class CFToolsWebManager
+    public class CFToolsWebManager
     {
         readonly string BASE_URL = "https://data.cftools.cloud";
         private string AuthToken { get; set; }
         public bool IsAuthorized { get; set; }
 
 
-        internal CFToolsWebManager(bool AutorenewToken = false)
+        public CFToolsWebManager(bool AutorenewToken = false)
         {
             Logger.GetInstance().Debug("Init CF-Tools Web Manager.");
             Init();
@@ -27,6 +27,8 @@ namespace CFToolsSDK.classes
             CFToolsConfigManager config = new CFToolsConfigManager();
             string Application_id = config.Application_id;
             string secret = config.secret;
+            Console.WriteLine("APPID: " + Application_id);
+            Console.WriteLine("secret: " + secret);
             bool result = await Auth(Application_id, secret);
             if (result)
             {
@@ -55,6 +57,11 @@ namespace CFToolsSDK.classes
             string Token = responseData["token"];
             AuthToken = Token;
             return res.IsSuccessStatusCode && !string.IsNullOrEmpty(AuthToken);
+        }
+
+        public void Test()
+        {
+
         }
     }
 }

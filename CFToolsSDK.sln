@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFToolsSDK", "CFToolsSDK\CFToolsSDK.csproj", "{216B102A-0DE5-44C4-8992-C4FD6D438AF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFToolsSDK", "CFToolsSDK\CFToolsSDK.csproj", "{216B102A-0DE5-44C4-8992-C4FD6D438AF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example_Project", "Example_Project\Example_Project.csproj", "{2A9032E4-891E-40ED-B677-E1D1719EDC75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{216B102A-0DE5-44C4-8992-C4FD6D438AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{216B102A-0DE5-44C4-8992-C4FD6D438AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{216B102A-0DE5-44C4-8992-C4FD6D438AF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A9032E4-891E-40ED-B677-E1D1719EDC75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A9032E4-891E-40ED-B677-E1D1719EDC75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A9032E4-891E-40ED-B677-E1D1719EDC75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A9032E4-891E-40ED-B677-E1D1719EDC75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

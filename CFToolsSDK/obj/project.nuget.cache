@@ -1,8 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "1cmW1AyTOIYPgPuiOvbSBDaJ1Rwsv5YpKKWv5fQYGgKRX7sOSxYvvvP6F+qtHvvJIbLMfK8d6i2B4GsKorHJCw==",
+  "dgSpecHash": "ZP+vr9nf/dv4SGiSoMgK3xlawdbUJFHUrlgML+fpfDZCjtc1wv9zfW1asShfyE7K/8/+aj8aL64V/Bpp/1zC6w==",
   "success": true,
   "projectFilePath": "C:\\Users\\krypt\\source\\repos\\CFToolsSDK\\CFToolsSDK\\CFToolsSDK.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\krypt\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\krypt\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\krypt\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
+    "C:\\Users\\krypt\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "C:\\Users\\krypt\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\krypt\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
+    "C:\\Users\\krypt\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
+    "C:\\Users\\krypt\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
+    "C:\\Users\\krypt\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
+    "C:\\Users\\krypt\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
