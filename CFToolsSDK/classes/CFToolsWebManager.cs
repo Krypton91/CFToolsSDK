@@ -250,13 +250,35 @@ namespace CFToolsSDK.classes
             return result.Item1;
         }
 
-        public async Task<bool> SendRawRconCommand(string server_api_id, string content)
+        public async Task<bool> SendRawRconCommand(string server_api_id, string command)
         {
             string endPoint = $"/v1/server/{server_api_id}/raw";
             var ReqData = new Dictionary<string, string>
             {
-                    {"command", content}
+                    {"command", command}
             };
+            var result = await Post(endPoint, ReqData);
+            return result.Item1;
+        }
+
+        public async Task<bool> AddQueuePriority(string server_api_id, string cftools_id, string comment, string expires_at = "")
+        {
+            string endPoint = $"/v1/server/{server_api_id}/queuepriority";
+            var ReqData = new Dictionary<string, string>
+            {
+                    {"cftools_id", cftools_id},
+                    {"comment", comment}
+            };
+
+            if (!string.IsNullOrEmpty(expires_at))
+            {
+                ReqData.Add("expires_at", expires_at);
+            }
+            else
+            {
+                ReqData.Add("expires_at", expires_at);
+            }
+
             var result = await Post(endPoint, ReqData);
             return result.Item1;
         }

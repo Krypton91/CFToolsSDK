@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using XSystem.Security.Cryptography;
 
@@ -27,6 +28,11 @@ namespace CFToolsSDK.classes
 
                 return sb.ToString();
             }
+        }
+
+        public static string ConvertDateTimeToIsco8601Time(DateTime time)
+        {
+            return time.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz", CultureInfo.InvariantCulture);
         }
     }
 }
