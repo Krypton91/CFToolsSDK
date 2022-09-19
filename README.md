@@ -132,7 +132,7 @@ bool sendet = await webManager.ServerMessage(string server_api_id, string conten
 |       Param        |                                             Description                                              |
 | -------------------- | ---------------------------------------------------------------------------------------------------- |
 | `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
-| `string command`       	| any valid rcon command [I'm an inline-style link]([https://www.google.com](https://pingperfect.com/index.php/knowledgebase/347/DayZ--Admin-Command-List.html)) |
+| `string command`       	| any valid rcon command [Commands]([https://www.google.com](https://pingperfect.com/index.php/knowledgebase/347/DayZ--Admin-Command-List.html)) |
 ```csharp
 bool sendet = await webManager.ServerMessage(string server_api_id, string content);
 ```
