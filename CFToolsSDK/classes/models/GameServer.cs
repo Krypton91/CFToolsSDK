@@ -14,6 +14,8 @@ namespace CFToolsSDK.classes.models
         public bool modded { get; set; }
         public bool official { get; set; }
         public string shard { get; set; }
+        public string name { get; set; }
+        public bool offline { get; set; }
         public bool whitelist { get; set; }
         public bool isFPPEnabled { get; set; }
         public bool isTPPEnabled { get; set; }
@@ -23,7 +25,7 @@ namespace CFToolsSDK.classes.models
 
         public GeoLocation location { get; set; }
         public List<Mod> mods { get; set; }
-        public status status { get; set; }
+        public Jwstatus status { get; set; }
         public string map_name { get; set; }
         public int Rank { get; set; }
         public int Rating { get; set; }
@@ -47,11 +49,12 @@ namespace CFToolsSDK.classes.models
 
     public class Mod
     {
-        public int file_id { get; set; }
+        
+        public long file_id { get; set; }
         public string name { get; set; }
     }
 
-    public class status
+    public class Jwstatus
     {
         public bool bots { get; set; }
         public int players { get; set; }
