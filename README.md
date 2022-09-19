@@ -50,10 +50,21 @@ The [master](https://github.com/Krypton91/CFToolsSDK/master) branch is running .
 
 ### Documentation
 
-#GET-Requests
 ```
-Comming soon
-````
+
+Fetch Leaderboard
+
+```csharp
+List<Leaderboard> board = await webManager.GetLeaderborad(string server_api_id, LEADERBOARD_STAT stat, LEADERBOARD_ORDER order, int limit);
+            if(board != null)
+            {
+                Logger.GetInstance().Debug("Successfully recived Leaderboard!");
+                foreach (var entry in board)
+                {
+                    Logger.GetInstance().Debug($"{entry.rank}. {entry.latest_name} has {entry.kills} with a KD {entry.kdratio}");
+                }
+            }
+```
 #POST-Requests
 ````
 Comming soon
