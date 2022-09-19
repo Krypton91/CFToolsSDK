@@ -26,7 +26,13 @@ You will need the following tools:
 To use this SDK follow the setup.
 1. Add 2 strings to your app.config
 ```
-comming soon
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<appSettings>
+		<add key="Application_id" value=""/>
+		<add key="secret" value=""/>
+	</appSettings>
+</configuration>
 ```
 2. Install this project via Package Manager.
 3. Read the documentation.
