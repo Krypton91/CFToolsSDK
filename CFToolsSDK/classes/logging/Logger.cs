@@ -35,6 +35,19 @@ namespace CFToolsSDK.classes.logging
             }
         }
 
+        public void Error(Exception ex, string OptionalMessage = "")
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("A fatal error has been occured.");
+            if(OptionalMessage != String.Empty)
+                Console.WriteLine(OptionalMessage);
+
+            Console.WriteLine("Error-Message: " + ex.Message);
+            Console.WriteLine("Error-Trace: " + ex.StackTrace);
+            Console.WriteLine();
+            Console.ResetColor();
+        }
+
 
 
 
