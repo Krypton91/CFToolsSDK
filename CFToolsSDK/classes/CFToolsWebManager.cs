@@ -50,16 +50,15 @@ namespace CFToolsSDK.classes
             CFToolsConfigManager config = new CFToolsConfigManager();
             string Application_id = config.Application_id;
             string secret = config.secret;
-            Console.WriteLine("APPID: " + Application_id);
-            Console.WriteLine("secret: " + secret);
             bool result = await Auth(Application_id, secret);
+            IsAuthorized = result;
             if (result)
             {
-                Logger.GetInstance().Log("[CF-Tools Clound]-> authorization successfully!");
+                Logger.GetInstance().Log("[CF-Tools Cloud]-> authorization successfully!");
             }
             else
             {
-                Logger.GetInstance().Error(new Exception("[CF-Tools Clound]-> ERROR: authorization forbidden!\nPlease check your credentials JSON!"));
+                Logger.GetInstance().Error(new Exception("[CF-Tools Cloud]-> ERROR: authorization forbidden!\nPlease check your credentials JSON!"));
             }
         }
 
@@ -84,11 +83,6 @@ namespace CFToolsSDK.classes
             return res.IsSuccessStatusCode && !string.IsNullOrEmpty(AuthToken);
         }
 
-        public void Test()
-        {
-
-        }
-
         public async Task<List<Leaderboard>> GetLeaderborad(string server_api_id, LEADERBOARD_STAT stat, LEADERBOARD_ORDER order, int limit)
         {
             int Order = (int)order;
@@ -107,7 +101,7 @@ namespace CFToolsSDK.classes
                 return leaderboard.leaderboard;
             }
             else
-                Console.WriteLine("ERROR CAN NOT FETCH LEADERBOARD! Please check your Credeantials!");
+                Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
 
             return null;
         }
