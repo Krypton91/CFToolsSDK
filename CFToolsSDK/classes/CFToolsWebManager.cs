@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -214,6 +215,18 @@ namespace CFToolsSDK.classes
             return null;
         }
 
+        public async Task<bool> KickPlayer(string server_api_id, string gamesession_id, string reason)
+        {
+            string endPoint = $"/v1/server/{server_api_id}/kick";
+            var ReqData = new Dictionary<string, string>
+            {
+                    {"gamesession_id", gamesession_id},
+                    {"order", reason}
+            };
+            var result = await Post(endPoint, ReqData);
+            return result.Item1;
+        }
+
         private async Task<Tuple<bool, string>> Get(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
@@ -232,6 +245,20 @@ namespace CFToolsSDK.classes
             }
             string url = builder.ToString();
             var res = await client.GetAsync(url);
+            var content = await res.Content.ReadAsStringAsync();
+            Console.WriteLine(content);
+            return Tuple.Create(res.IsSuccessStatusCode, content);
+        }
+
+
+        private async Task<Tuple<bool, string>> Post(string endPointURL, Dictionary<string, string> RequestParams)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AuthToken);
+            var builder = new UriBuilder(BASE_URL + endPointURL);
+            string url = builder.ToString();
+            var encodedContent = new FormUrlEncodedContent(RequestParams);
+            var res = await client.PostAsync(url, encodedContent);
             var content = await res.Content.ReadAsStringAsync();
             Console.WriteLine(content);
             return Tuple.Create(res.IsSuccessStatusCode, content);
