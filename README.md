@@ -6,7 +6,7 @@
 This SDK gives you the ability to post or query data from the CFTools Cloud API.
 You can run anything available in the webapi through this SDK. Currently supported is:
 - [x] #Fetch Leaderboard
-- [ ] #Fetch Playerdata
+- [x] #Fetch Server Infos
 - [ ] #Fetch Server data
 
 
@@ -48,9 +48,9 @@ To use this SDK follow the setup.
 ## Versions
 The [master](https://github.com/Krypton91/CFToolsSDK/master) branch is running .NET Core 3.1
 
-### Documentation
+# Documentation
 
-# Fetch Leaderboard
+### Fetch Leaderboard
 
 |       Param        |                                             Description                                              |
 | -------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -68,6 +68,16 @@ if(board != null)
 		Logger.GetInstance().Debug($"{entry.rank}. {entry.latest_name} has {entry.kills} with a KD {entry.kdratio}");
 	}
 }
+```
+
+### Fetch Server Infos
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string ServerIP`           | the ip address of the gameserver where you want to fetch the infos. |
+| `string Gameport` | the Gameport of the gameserver where you want to fetch the infos. |
+```csharp
+GameServer server = await webManager.GetGameServer(CFHelper.GenerateServerId(string ServerIP, string Gameport));
 ```
 
 CFTOOLS DOCS: https://developer.cftools.cloud/documentation/data-api
