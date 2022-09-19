@@ -250,6 +250,17 @@ namespace CFToolsSDK.classes
             return result.Item1;
         }
 
+        public async Task<bool> SendRawRconCommand(string server_api_id, string content)
+        {
+            string endPoint = $"/v1/server/{server_api_id}/raw";
+            var ReqData = new Dictionary<string, string>
+            {
+                    {"command", content}
+            };
+            var result = await Post(endPoint, ReqData);
+            return result.Item1;
+        }
+
         private async Task<Tuple<bool, string>> Get(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
