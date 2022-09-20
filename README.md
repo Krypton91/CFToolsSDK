@@ -184,5 +184,15 @@ bool addedWithsuccess = await webManager.AddWhiteListEntry(string server_api_id,
 ```csharp
 bool deleted = await webManager.DeleteQueuePriority(string server_api_id, string player_cfid);
 ````
+
+## Delete Data
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string cftools_id`       	| cftools_id of the player.|
+```csharp
+bool deleted = await webManager.DeleteWhiteListEntry(string server_api_id, string player_cfid);
+````
 Comming soon
 ````
