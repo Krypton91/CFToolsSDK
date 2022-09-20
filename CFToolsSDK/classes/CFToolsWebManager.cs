@@ -17,6 +17,7 @@ using CFToolsSDK.classes.models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using XAct.Library.Settings;
+using static System.Net.Mime.MediaTypeNames;
 using static CFToolsSDK.classes.Enums;
 
 namespace CFToolsSDK.classes
@@ -67,8 +68,6 @@ namespace CFToolsSDK.classes
                 Logger.GetInstance().Error(new Exception("[CF-Tools Cloud]-> ERROR: authorization forbidden!\nPlease check your credentials JSON!"));
             }
         }
-
-
 
         private async Task<bool> Auth(string Application_id, string secret)
         {
@@ -199,7 +198,6 @@ namespace CFToolsSDK.classes
             return null;
         }
 
-
         public async Task<FullPlayerList> GetFullPlayerList(string server_api_id)
         {
             string endPoint = $"/v1/server/{server_api_id}/GSM/list";
@@ -237,6 +235,60 @@ namespace CFToolsSDK.classes
                 Console.WriteLine(result.Item1);
                 var Data = JsonConvert.DeserializeObject<WhiteListResponse>(result.Item2);
                 return Data;
+            }
+            else
+                Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
+
+            return null;
+        }
+
+        public async Task<Session> GetPlayerStats(string server_api_id, string cftools_id)
+        {
+            string endPoint = $"/v1/server/{server_api_id}/player";
+            var ReqData = new Dictionary<string, string>();
+            ReqData.Add("cftools_id", cftools_id);
+
+            var result = await Get(endPoint, ReqData);
+            if (result.Item1)
+            {
+                Console.WriteLine(result.Item1);
+
+                var jo = JObject.Parse(result.Item2);
+                Playerstats playerstats = new Playerstats();
+                var data = (JObject)jo[cftools_id];
+                if (data != null)
+                {
+                    playerstats.cleared_at = DateTime.Parse(data.SelectToken("cleared_at").ToString());
+                    playerstats.created_at = DateTime.Parse(data.SelectToken("created_at").ToString());
+
+                    var jgame = data.SelectToken("game");
+                    var general = jgame.SelectToken("general");
+                    var weaponList = general.SelectToken("weapons");
+                    Game game = JsonConvert.DeserializeObject<Game>(jgame.ToString());
+
+                    playerstats.game = game;
+                    var OmegaData = data.SelectToken("omega").ToString();
+                    Omega omega = JsonConvert.DeserializeObject<Omega>(OmegaData);
+                    playerstats.omega = omega;
+
+                    playerstats.updated_at = DateTime.Parse(data.SelectToken("updated_at").ToString());
+
+                     playerstats.game.general.used_weapons = new List<Weapon>();
+                    foreach (dynamic item in weaponList)
+                    {
+                        Weapon weapon = new Weapon();
+                        weapon.name = item.Name;
+                        JObject datza = item.First;
+                        weapon.deaths = int.Parse(datza.SelectToken("deaths").ToString());
+                        weapon.damage = decimal.Parse(datza.SelectToken("damage").ToString());
+                        weapon.hits = decimal.Parse(datza.SelectToken("hits").ToString());
+                        weapon.kills = int.Parse(datza.SelectToken("kills").ToString());
+                        weapon.longest_kill = decimal.Parse(datza.SelectToken("longest_kill").ToString());
+                        weapon.longest_shot = decimal.Parse(datza.SelectToken("longest_shot").ToString());
+
+                        playerstats.game.general.used_weapons.Add(weapon);
+                    }
+                }
             }
             else
                 Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
