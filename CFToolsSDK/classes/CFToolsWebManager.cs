@@ -203,10 +203,39 @@ namespace CFToolsSDK.classes
         public async Task<FullPlayerList> GetFullPlayerList(string server_api_id)
         {
             string endPoint = $"/v1/server/{server_api_id}/GSM/list";
+
             var result = await Get(endPoint, null);
             if (result.Item1)
             {
                 var Data = JsonConvert.DeserializeObject<FullPlayerList>(result.Item2);
+                return Data;
+            }
+            else
+                Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
+
+            return null;
+        }
+
+        public async Task<WhiteListResponse> GetWhitelist(string server_api_id, string cftools_id = "", string comment = "")
+        {
+            string endPoint = $"/v1/server/{server_api_id}/whitelist";
+            var ReqData = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(cftools_id))
+            {
+                ReqData.Add("cftools_id", cftools_id);
+            }
+
+            if (!string.IsNullOrEmpty(comment))
+            {
+                ReqData.Add("comment", comment);
+            }
+
+
+            var result = await Get(endPoint, ReqData);
+            if (result.Item1)
+            {
+                Console.WriteLine(result.Item1);
+                var Data = JsonConvert.DeserializeObject<WhiteListResponse>(result.Item2);
                 return Data;
             }
             else
