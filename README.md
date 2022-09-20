@@ -5,15 +5,20 @@
 
 This SDK gives you the ability to post or query data from the CFTools Cloud API.
 You can run anything available in the webapi through this SDK. Currently supported is:
-- [x] Fetch Leaderboard
-- [x] Fetch Server Infos
-- [x] Fetch full playerlist
+- [x] Get Leaderboard
+- [x] Get Server Infos
+- [x] Get Playerstats
+- [x] Get full playerlist
+- [x] Get whitelist entrys
 - [x] Kick player
 - [x] Send private message
 - [x] Send server message
 - [x] Send raw rcon command
 - [x] Add queue priority
+- [x] Add whitelist entry
 - [x] Delete queue priority
+- [x] Delete whitelist entry
+- [x] Search player by identifier
 
 
 ## Getting Started
