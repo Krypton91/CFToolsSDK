@@ -69,24 +69,6 @@ namespace CFToolsSDK.classes
             }
         }
 
-        private async Task<bool> Auth(string Application_id, string secret)
-        {
-            string endPointURL = "/v1/auth/register";
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
-            var data = new Dictionary<string, string>
-            {
-                {"application_id", Application_id},
-                {"secret", secret}
-            };
-
-            var res = await client.PostAsync(endPointURL, new FormUrlEncodedContent(data));
-            var content = await res.Content.ReadAsStringAsync();
-            dynamic responseData = JObject.Parse(content);
-            string Token = responseData["token"];
-            AuthToken = Token;
-            return res.IsSuccessStatusCode && !string.IsNullOrEmpty(AuthToken);
-        }
 
         public async Task <GameServer> GetGameServer(string ServerHash)
         {
@@ -207,6 +189,32 @@ namespace CFToolsSDK.classes
             {
                 var Data = JsonConvert.DeserializeObject<FullPlayerList>(result.Item2);
                 return Data;
+            }
+            else
+                Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
+
+            return null;
+        }
+
+        public async Task<string> PlayerLookUp(string identifier)
+        {
+            string endPoint = $"/v1/users/lookup";
+            var ReqData = new Dictionary<string, string>{};
+            ReqData.Add("identifier", identifier);
+            var result = await Get(endPoint, ReqData);
+            if (result.Item1)
+            {
+                var jo = JObject.Parse(result.Item2);
+                var data = (JObject)jo;
+                if (data != null)
+                {
+                    if (data.ContainsKey("cftools_id"))
+                    {
+                        string cftools_id = data.SelectToken("cftools_id").ToString();
+
+                        return cftools_id;
+                    }
+                }
             }
             else
                 Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
@@ -409,6 +417,24 @@ namespace CFToolsSDK.classes
         }
 
         #region CORE_FUNCTIONS_WEB
+        private async Task<bool> Auth(string Application_id, string secret)
+        {
+            string endPointURL = "/v1/auth/register";
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(BASE_URL);
+            var data = new Dictionary<string, string>
+            {
+                {"application_id", Application_id},
+                {"secret", secret}
+            };
+
+            var res = await client.PostAsync(endPointURL, new FormUrlEncodedContent(data));
+            var content = await res.Content.ReadAsStringAsync();
+            dynamic responseData = JObject.Parse(content);
+            string Token = responseData["token"];
+            AuthToken = Token;
+            return res.IsSuccessStatusCode && !string.IsNullOrEmpty(AuthToken);
+        }
         private async Task<Tuple<bool, string>> Get(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
