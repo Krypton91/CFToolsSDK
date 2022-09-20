@@ -97,6 +97,17 @@ if(playerlist != null)
         }
 }
 ```
+
+### Get whitelist
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string cftools_id`       	| cftools_id of the reciver. (optional when empty or null full will be requested.)|
+| `string comment`       	| comment. (optional when empty or null full will be requested.)|
+```csharp
+ WhiteListResponse whitelist = await webManager.GetWhitelist(string server_api_id, string cftools_id = "", string comment = "");
+```
 ## Post Data
 ### Kick player
 
