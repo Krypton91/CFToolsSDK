@@ -244,6 +244,28 @@ namespace CFToolsSDK.classes
             return null;
         }
 
+        public async Task<bool> AddWhiteListEntry(string server_api_id, string cftools_id, string comment, string expires_at = "")
+        {
+            string endPoint = $"/v1/server/{server_api_id}/whitelist";
+            var ReqData = new Dictionary<string, string>
+            {
+                    {"cftools_id", cftools_id},
+                    {"comment", comment}
+            };
+
+            if (!string.IsNullOrEmpty(expires_at))
+            {
+                ReqData.Add("expires_at", expires_at);
+            }
+            else
+            {
+                ReqData.Add("expires_at", expires_at);
+            }
+
+            var result = await Post(endPoint, ReqData);
+            return result.Item1;
+        }
+
         public async Task<bool> KickPlayer(string server_api_id, string gamesession_id, string reason)
         {
             string endPoint = $"/v1/server/{server_api_id}/kick";
