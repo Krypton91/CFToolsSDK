@@ -97,6 +97,15 @@ Session stats = await webManager.GetPlayerStats(string server_api_id, string cft
 GameServer server = await webManager.GetGameServer(CFHelper.GenerateServerId(string ServerIP, string Gameport));
 ```
 
+### Search cftools_id by identifier
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string identifier`           |  Either a Steam64, BattlEye GUID or Bohemia Interactive UID |
+```csharp
+string cfid = await webManager.PlayerLookUp(string identifier);
+```
+
 ### Fetch full playerlist
 
 |       Param        |                                             Description                                              |
