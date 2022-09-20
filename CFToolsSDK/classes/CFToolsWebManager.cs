@@ -266,6 +266,17 @@ namespace CFToolsSDK.classes
             return result.Item1;
         }
 
+        public async Task<bool> DeleteWhiteListEntry(string server_api_id, string cftools_id)
+        {
+            string endPoint = $"/v1/server/{server_api_id}/whitelist";
+            var ReqData = new Dictionary<string, string>
+            {
+                    {"cftools_id", cftools_id}
+            };
+            var result = await Delete(endPoint, ReqData);
+            return result.Item1;
+        }
+
         public async Task<bool> KickPlayer(string server_api_id, string gamesession_id, string reason)
         {
             string endPoint = $"/v1/server/{server_api_id}/kick";
@@ -345,6 +356,7 @@ namespace CFToolsSDK.classes
             return result.Item1;
         }
 
+        #region CORE_FUNCTIONS_WEB
         private async Task<Tuple<bool, string>> Get(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
@@ -367,7 +379,6 @@ namespace CFToolsSDK.classes
             Console.WriteLine(content);
             return Tuple.Create(res.IsSuccessStatusCode, content);
         }
-
         private async Task<Tuple<bool, string>> Delete(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
@@ -390,8 +401,6 @@ namespace CFToolsSDK.classes
             Console.WriteLine(content);
             return Tuple.Create(res.IsSuccessStatusCode, content);
         }
-
-
         private async Task<Tuple<bool, string>> Post(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
@@ -404,5 +413,6 @@ namespace CFToolsSDK.classes
             Console.WriteLine(content);
             return Tuple.Create(res.IsSuccessStatusCode, content);
         }
+        #endregion
     }
 }
