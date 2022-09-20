@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Company>Kryptons Mods</Company>
+    <PackageProjectUrl>https://github.com/Krypton91/CFToolsSDK</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Krypton91/CFToolsSDK</RepositoryUrl>
+    <PackageTags>CfTools; DayZ</PackageTags>
+    <PackAsTool>False</PackAsTool>
+    <Title>CF-Tools DayZ SDK</Title>
+    <Version>1.0.0</Version>
+    <Authors>Krypton91</Authors>
+    <Copyright>https://github.com/Krypton91/CFToolsSDK</Copyright>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

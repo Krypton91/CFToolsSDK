@@ -127,6 +127,17 @@ if(playerlist != null)
         }
 }
 ```
+
+### Get whitelist
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string cftools_id`       	| cftools_id of the reciver. (optional when empty or null full will be requested.)|
+| `string comment`       	| comment. (optional when empty or null full will be requested.)|
+```csharp
+ WhiteListResponse whitelist = await webManager.GetWhitelist(string server_api_id, string cftools_id = "", string comment = "");
+```
 ## Post Data
 ### Kick player
 
@@ -181,6 +192,19 @@ expires = expires.AddDays(2);//In our case we give him 2 Days.
 bool addedWithsuccess = await webManager.AddQueuePriority(string server_api_id, string player_cfid, string comment, CFHelper.ConvertDateTimeToIso8601Time(expires));
 ```
 
+### Add whitelist
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string player_cfid`       	| cftools_id of the reciver.|
+| `string comment`       	| any comment.|
+| `string expires_at`       	| Isco8601 timestamp, you can use the convertor in CFHelper to convert any DateTime object to ISO8601.|
+```csharp
+DateTime expires = DateTime.UtcNow;
+expires = expires.AddDays(2);//In our case we give him 2 Days.
+bool addedWithsuccess = await webManager.AddWhiteListEntry(string server_api_id, string player_cfid, string comment, CFHelper.ConvertDateTimeToIso8601Time(expires));
+```
+
 ## Delete Data
 
 ### Delete queue priority
@@ -190,6 +214,16 @@ bool addedWithsuccess = await webManager.AddQueuePriority(string server_api_id, 
 | `string player_cfid`       	| cftools_id of the player.|
 ```csharp
 bool deleted = await webManager.DeleteQueuePriority(string server_api_id, string player_cfid);
+````
+
+## Delete Data
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | the server_api_id can be found in app.cftools.cloud . |
+| `string cftools_id`       	| cftools_id of the player.|
+```csharp
+bool deleted = await webManager.DeleteWhiteListEntry(string server_api_id, string player_cfid);
 ````
 Comming soon
 ````

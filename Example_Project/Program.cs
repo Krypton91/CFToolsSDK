@@ -28,8 +28,8 @@ namespace Example_Project
             {
                 Logger.GetInstance().Debug("Waiting for Auth...........");
             }
-            FullPlayerList playerlist = await webManager.GetFullPlayerList("");
-            if(playerlist != null)
+            //FullPlayerList playerlist = await webManager.GetFullPlayerList("");
+            /*if(playerlist != null)
             {
                 Logger.GetInstance().Debug("Successfully recived Leaderboard!");
                 foreach (var entry in playerlist.sessions)
@@ -37,13 +37,16 @@ namespace Example_Project
                     Logger.GetInstance().Debug($"{entry.cftools_id} with name: {entry.gamedata.player_name} SessionId: {entry.id}");
                 }
             }
+            */
 
             /*DateTime expires = DateTime.UtcNow;
             expires = expires.AddDays(2);
             bool test = await webManager.AddQueuePriority("", "", "Sheesh", CFHelper.ConvertDateTimeToIso8601Time(expires));
             */
 
-            bool deleted = await webManager.DeleteQueuePriority("", "");
+            WhiteListResponse whitelist = await webManager.GetWhitelist("24234c37-0703-49dc-9145-b67da3863723", "6227e595092b438359f52d71");
+
+            bool addedSuccessfully = await webManager.AddWhiteListEntry();
 
             Console.ReadKey();
         }

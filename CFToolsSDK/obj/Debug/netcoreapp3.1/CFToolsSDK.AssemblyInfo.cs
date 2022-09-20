@@ -11,13 +11,15 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("CFToolsSDK")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Kryptons Mods")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("https://github.com/Krypton91/CFToolsSDK")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("CFToolsSDK")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CFToolsSDK")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyMetadataAttribute("RepositoryUrl", "https://github.com/Krypton91/CFToolsSDK")]
 
 // Von der MSBuild WriteCodeFragment-Klasse generiert.
 

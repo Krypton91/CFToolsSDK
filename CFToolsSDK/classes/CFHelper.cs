@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using XAct.IO;
+using XAct;
 using XSystem.Security.Cryptography;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CFToolsSDK.classes
 {

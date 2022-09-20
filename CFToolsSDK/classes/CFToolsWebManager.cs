@@ -17,6 +17,7 @@ using CFToolsSDK.classes.models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using XAct.Library.Settings;
+using static System.Net.Mime.MediaTypeNames;
 using static CFToolsSDK.classes.Enums;
 
 namespace CFToolsSDK.classes
@@ -68,26 +69,6 @@ namespace CFToolsSDK.classes
             }
         }
 
-
-
-        private async Task<bool> Auth(string Application_id, string secret)
-        {
-            string endPointURL = "/v1/auth/register";
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
-            var data = new Dictionary<string, string>
-            {
-                {"application_id", Application_id},
-                {"secret", secret}
-            };
-
-            var res = await client.PostAsync(endPointURL, new FormUrlEncodedContent(data));
-            var content = await res.Content.ReadAsStringAsync();
-            dynamic responseData = JObject.Parse(content);
-            string Token = responseData["token"];
-            AuthToken = Token;
-            return res.IsSuccessStatusCode && !string.IsNullOrEmpty(AuthToken);
-        }
 
         public async Task <GameServer> GetGameServer(string ServerHash)
         {
@@ -199,10 +180,10 @@ namespace CFToolsSDK.classes
             return null;
         }
 
-
         public async Task<FullPlayerList> GetFullPlayerList(string server_api_id)
         {
             string endPoint = $"/v1/server/{server_api_id}/GSM/list";
+
             var result = await Get(endPoint, null);
             if (result.Item1)
             {
@@ -213,6 +194,147 @@ namespace CFToolsSDK.classes
                 Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
 
             return null;
+        }
+
+        public async Task<string> PlayerLookUp(string identifier)
+        {
+            string endPoint = $"/v1/users/lookup";
+            var ReqData = new Dictionary<string, string>{};
+            ReqData.Add("identifier", identifier);
+            var result = await Get(endPoint, ReqData);
+            if (result.Item1)
+            {
+                var jo = JObject.Parse(result.Item2);
+                var data = (JObject)jo;
+                if (data != null)
+                {
+                    if (data.ContainsKey("cftools_id"))
+                    {
+                        string cftools_id = data.SelectToken("cftools_id").ToString();
+
+                        return cftools_id;
+                    }
+                }
+            }
+            else
+                Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
+
+            return null;
+        }
+
+        public async Task<WhiteListResponse> GetWhitelist(string server_api_id, string cftools_id = "", string comment = "")
+        {
+            string endPoint = $"/v1/server/{server_api_id}/whitelist";
+            var ReqData = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(cftools_id))
+            {
+                ReqData.Add("cftools_id", cftools_id);
+            }
+
+            if (!string.IsNullOrEmpty(comment))
+            {
+                ReqData.Add("comment", comment);
+            }
+
+
+            var result = await Get(endPoint, ReqData);
+            if (result.Item1)
+            {
+                Console.WriteLine(result.Item1);
+                var Data = JsonConvert.DeserializeObject<WhiteListResponse>(result.Item2);
+                return Data;
+            }
+            else
+                Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
+
+            return null;
+        }
+
+        public async Task<Session> GetPlayerStats(string server_api_id, string cftools_id)
+        {
+            string endPoint = $"/v1/server/{server_api_id}/player";
+            var ReqData = new Dictionary<string, string>();
+            ReqData.Add("cftools_id", cftools_id);
+
+            var result = await Get(endPoint, ReqData);
+            if (result.Item1)
+            {
+                Console.WriteLine(result.Item1);
+
+                var jo = JObject.Parse(result.Item2);
+                Playerstats playerstats = new Playerstats();
+                var data = (JObject)jo[cftools_id];
+                if (data != null)
+                {
+                    playerstats.cleared_at = DateTime.Parse(data.SelectToken("cleared_at").ToString());
+                    playerstats.created_at = DateTime.Parse(data.SelectToken("created_at").ToString());
+
+                    var jgame = data.SelectToken("game");
+                    var general = jgame.SelectToken("general");
+                    var weaponList = general.SelectToken("weapons");
+                    Game game = JsonConvert.DeserializeObject<Game>(jgame.ToString());
+
+                    playerstats.game = game;
+                    var OmegaData = data.SelectToken("omega").ToString();
+                    Omega omega = JsonConvert.DeserializeObject<Omega>(OmegaData);
+                    playerstats.omega = omega;
+
+                    playerstats.updated_at = DateTime.Parse(data.SelectToken("updated_at").ToString());
+
+                     playerstats.game.general.used_weapons = new List<Weapon>();
+                    foreach (dynamic item in weaponList)
+                    {
+                        Weapon weapon = new Weapon();
+                        weapon.name = item.Name;
+                        JObject datza = item.First;
+                        weapon.deaths = int.Parse(datza.SelectToken("deaths").ToString());
+                        weapon.damage = decimal.Parse(datza.SelectToken("damage").ToString());
+                        weapon.hits = decimal.Parse(datza.SelectToken("hits").ToString());
+                        weapon.kills = int.Parse(datza.SelectToken("kills").ToString());
+                        weapon.longest_kill = decimal.Parse(datza.SelectToken("longest_kill").ToString());
+                        weapon.longest_shot = decimal.Parse(datza.SelectToken("longest_shot").ToString());
+
+                        playerstats.game.general.used_weapons.Add(weapon);
+                    }
+                }
+            }
+            else
+                Logger.GetInstance().Error(new Exception("[CF-Tools Cloud] -> Response was not successfully!"));
+
+            return null;
+        }
+
+        public async Task<bool> AddWhiteListEntry(string server_api_id, string cftools_id, string comment, string expires_at = "")
+        {
+            string endPoint = $"/v1/server/{server_api_id}/whitelist";
+            var ReqData = new Dictionary<string, string>
+            {
+                    {"cftools_id", cftools_id},
+                    {"comment", comment}
+            };
+
+            if (!string.IsNullOrEmpty(expires_at))
+            {
+                ReqData.Add("expires_at", expires_at);
+            }
+            else
+            {
+                ReqData.Add("expires_at", expires_at);
+            }
+
+            var result = await Post(endPoint, ReqData);
+            return result.Item1;
+        }
+
+        public async Task<bool> DeleteWhiteListEntry(string server_api_id, string cftools_id)
+        {
+            string endPoint = $"/v1/server/{server_api_id}/whitelist";
+            var ReqData = new Dictionary<string, string>
+            {
+                    {"cftools_id", cftools_id}
+            };
+            var result = await Delete(endPoint, ReqData);
+            return result.Item1;
         }
 
         public async Task<bool> KickPlayer(string server_api_id, string gamesession_id, string reason)
@@ -294,6 +416,25 @@ namespace CFToolsSDK.classes
             return result.Item1;
         }
 
+        #region CORE_FUNCTIONS_WEB
+        private async Task<bool> Auth(string Application_id, string secret)
+        {
+            string endPointURL = "/v1/auth/register";
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(BASE_URL);
+            var data = new Dictionary<string, string>
+            {
+                {"application_id", Application_id},
+                {"secret", secret}
+            };
+
+            var res = await client.PostAsync(endPointURL, new FormUrlEncodedContent(data));
+            var content = await res.Content.ReadAsStringAsync();
+            dynamic responseData = JObject.Parse(content);
+            string Token = responseData["token"];
+            AuthToken = Token;
+            return res.IsSuccessStatusCode && !string.IsNullOrEmpty(AuthToken);
+        }
         private async Task<Tuple<bool, string>> Get(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
@@ -316,7 +457,6 @@ namespace CFToolsSDK.classes
             Console.WriteLine(content);
             return Tuple.Create(res.IsSuccessStatusCode, content);
         }
-
         private async Task<Tuple<bool, string>> Delete(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
@@ -339,8 +479,6 @@ namespace CFToolsSDK.classes
             Console.WriteLine(content);
             return Tuple.Create(res.IsSuccessStatusCode, content);
         }
-
-
         private async Task<Tuple<bool, string>> Post(string endPointURL, Dictionary<string, string> RequestParams)
         {
             HttpClient client = new HttpClient();
@@ -353,5 +491,6 @@ namespace CFToolsSDK.classes
             Console.WriteLine(content);
             return Tuple.Create(res.IsSuccessStatusCode, content);
         }
+        #endregion
     }
 }
