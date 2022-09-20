@@ -77,6 +77,16 @@ if(board != null)
 }
 ```
 
+### Fetch Playerstats
+
+|       Param        |                                             Description                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `string server_api_id`           | can be found in cftools. |
+| `string cftools_id` | cftools_id of the player. |
+```csharp
+Session stats = await webManager.GetPlayerStats(string server_api_id, string cftools_id);
+```
+
 ### Fetch Server Infos
 
 |       Param        |                                             Description                                              |
